@@ -1,6 +1,10 @@
 package com.pocketpou;
 
 import com.pocketpou.controller.GameController;
+import com.pocketpou.model.item.Item;
+import com.pocketpou.model.item.factory.FoodCreator;
+import com.pocketpou.model.item.factory.ItemCreator;
+import com.pocketpou.model.item.factory.MedicineCreator;
 import com.pocketpou.model.pet.Pet;
 import com.pocketpou.model.pet.PetAttributes;
 import com.pocketpou.model.pet.PetSpecies;
@@ -65,5 +69,23 @@ public class Main {
         pet.removeObserver(notifier);
         pet.updateAttributes(new PetAttributes(95, 10, 10, 10, 1));
         view.showMessage("Actualización finalizada sin notificaciones.");
+
+        view.showMessage("\nPrueba del patrón Factory Method:");
+        ItemCreator foodCreator = new FoodCreator();
+        ItemCreator medicineCreator = new MedicineCreator();
+
+        Item apple = foodCreator.createItem("Apple", 10, 20);
+        Item sushi = foodCreator.createItem("Sushi", 30, 50);
+        Item cookie = foodCreator.createItem("Cookie", 5, 10);
+        Item basicMedicine = medicineCreator.createItem("Basic Medicine", 20, 30);
+        Item advancedMedicine = medicineCreator.createItem("Advanced Medicine", 50, 80);
+
+        view.showMessage(apple.getName() + " - Precio: " + apple.getPrice() + " monedas");
+        view.showMessage(sushi.getName() + " - Precio: " + sushi.getPrice() + " monedas");
+        view.showMessage(cookie.getName() + " - Precio: " + cookie.getPrice() + " monedas");
+        view.showMessage(basicMedicine.getName() + " - Precio: "
+                + basicMedicine.getPrice() + " monedas");
+        view.showMessage(advancedMedicine.getName() + " - Precio: "
+                + advancedMedicine.getPrice() + " monedas");
     }
 }
