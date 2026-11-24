@@ -10,10 +10,13 @@ import java.util.Set;
 /*
  * PATTERN: State
  * Rol: Contexto.
+ * Función: Delegar las acciones de la mascota en su estado actual
+ * y permitir que dicho estado cambie durante el juego.
+ *
  * PATTERN: Observer
  * Rol: Sujeto observable.
- * Función: Mantener el estado actual de la mascota y notificar
- * a los observadores cuando cambian sus atributos vitales.
+ * Función: Notificar a los observadores cuando cambian
+ * los atributos vitales de la mascota.
  */
 public final class Pet {
 
@@ -56,8 +59,24 @@ public final class Pet {
         this.state = Objects.requireNonNull(state, "state must not be null");
     }
 
+    public void feed() {
+        state.feed(this);
+    }
+
+    public void play() {
+        state.play(this);
+    }
+
+    public void sleep() {
+        state.sleep(this);
+    }
+
+    public void heal() {
+        state.heal(this);
+    }
+
     public String getStateName() {
-        return state.getName();
+        return state.getStateName();
     }
 
     public void addObserver(PetObserver observer) {
