@@ -3,10 +3,10 @@ package com.pocketpou.model.minigame.strategy;
 /*
  * PATTERN: Strategy
  * Rol: Interfaz de la estrategia.
- * Función: Definir el contrato para calcular
- * la puntuación de un minijuego.
+ * Función: Definir el contrato para calcular la recompensa en monedas
+ * a partir de los aciertos, los intentos y el tiempo en milisegundos.
  */
 public interface ScoringStrategy {
 
-    int calculateScore(int performanceValue);
+    int calculateScore(int correctAnswers, int attempts, long elapsedTimeMillis);
 }
