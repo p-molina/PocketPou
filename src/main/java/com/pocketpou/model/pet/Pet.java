@@ -11,7 +11,7 @@ import java.util.Objects;
  * PATTERN: State
  * Rol: Contexto.
  * Función: Delegar las acciones de la mascota en su estado actual
- * y permitir que dicho estado cambie durante el juego.
+ * y gestionar sus cambios de estado durante el juego.
  *
  * PATTERN: Observer
  * Rol: Sujeto observable.

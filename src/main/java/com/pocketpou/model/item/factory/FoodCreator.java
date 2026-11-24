@@ -7,9 +7,9 @@ import com.pocketpou.model.item.Food;
  * Rol: Creador concreto.
  * Función: Crear productos de tipo Food.
  */
-public final class FoodCreator implements ItemCreator {
+public final class FoodCreator extends ItemCreator {
 
-    public Food createItem(String name) {
-        return new Food(name);
+    public Food createItem(String name, int price, int hungerReduction) {
+        return null;
     }
 }

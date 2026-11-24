@@ -5,10 +5,10 @@ import com.pocketpou.model.item.Item;
 /*
  * PATTERN: Factory Method
  * Rol: Creador.
- * Función: Definir el método polimórfico utilizado
- * para crear objetos.
+ * Función: Definir el método polimórfico
+ * de creación de productos.
  */
-public interface ItemCreator {
+public abstract class ItemCreator {
 
-    Item createItem(String name);
+    public abstract Item createItem(String name, int price, int effectValue);
 }

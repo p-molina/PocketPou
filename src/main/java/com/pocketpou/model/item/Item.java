@@ -3,10 +3,12 @@ package com.pocketpou.model.item;
 /*
  * PATTERN: Factory Method
  * Rol: Interfaz del producto.
- * Función: Definir el contrato común de los objetos
- * que pueden crearse y almacenarse.
+ * Función: Definir el nombre y el precio comunes
+ * a todos los productos.
  */
 public interface Item {
 
     String getName();
+
+    int getPrice();
 }
