@@ -5,11 +5,11 @@ import com.pocketpou.model.pet.PetAttributes;
 /*
  * PATTERN: Observer
  * Rol: Interfaz del observador.
- * Función: Definir la notificación que se recibe cuando cambian
- * los atributos vitales de la mascota.
+ * Función: Definir el método que recibirá los atributos
+ * vitales de la mascota cuando sean notificados.
  */
 @FunctionalInterface
 public interface PetObserver {
 
-    void onAttributesChanged(PetAttributes attributes);
+    void update(PetAttributes attributes);
 }

@@ -3,9 +3,9 @@ package com.pocketpou.model.pet;
 import com.pocketpou.model.pet.observer.PetObserver;
 import com.pocketpou.model.pet.state.PetState;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /*
  * PATTERN: State
@@ -15,14 +15,14 @@ import java.util.Set;
  *
  * PATTERN: Observer
  * Rol: Sujeto observable.
- * Función: Notificar a los observadores cuando cambian
- * los atributos vitales de la mascota.
+ * Función: Preparar el registro y la futura notificación
+ * de los observadores de la mascota.
  */
 public final class Pet {
 
     private final String name;
     private final PetSpecies species;
-    private final Set<PetObserver> observers;
+    private final List<PetObserver> observers;
     private PetAttributes attributes;
     private PetState state;
 
@@ -31,7 +31,7 @@ public final class Pet {
         this.species = Objects.requireNonNull(species, "species must not be null");
         this.attributes = Objects.requireNonNull(attributes, "attributes must not be null");
         this.state = Objects.requireNonNull(state, "state must not be null");
-        this.observers = new LinkedHashSet<>();
+        this.observers = new ArrayList<>();
     }
 
     public String getName() {
@@ -52,7 +52,6 @@ public final class Pet {
 
     public void updateAttributes(PetAttributes attributes) {
         this.attributes = Objects.requireNonNull(attributes, "attributes must not be null");
-        notifyObservers();
     }
 
     public void changeState(PetState state) {
@@ -80,16 +79,11 @@ public final class Pet {
     }
 
     public void addObserver(PetObserver observer) {
-        observers.add(Objects.requireNonNull(observer, "observer must not be null"));
     }
 
     public void removeObserver(PetObserver observer) {
-        observers.remove(observer);
     }
 
-    private void notifyObservers() {
-        for (PetObserver observer : Set.copyOf(observers)) {
-            observer.onAttributesChanged(attributes);
-        }
+    public void notifyObservers() {
     }
 }
