@@ -15,8 +15,8 @@ import java.util.Objects;
  *
  * PATTERN: Observer
  * Rol: Sujeto observable.
- * Función: Preparar el registro y la futura notificación
- * de los observadores de la mascota.
+ * Función: Registrar observadores y notificarles automáticamente
+ * los cambios en los atributos vitales de la mascota.
  */
 public final class Pet {
 
@@ -52,6 +52,7 @@ public final class Pet {
 
     public void updateAttributes(PetAttributes attributes) {
         this.attributes = Objects.requireNonNull(attributes, "attributes must not be null");
+        notifyObservers();
     }
 
     public void changeState(PetState state) {
@@ -79,11 +80,17 @@ public final class Pet {
     }
 
     public void addObserver(PetObserver observer) {
+        observers.add(observer);
     }
 
     public void removeObserver(PetObserver observer) {
+        observers.remove(observer);
     }
 
     public void notifyObservers() {
+        for (int index = 0; index < observers.size(); index++) {
+            PetObserver observer = observers.get(index);
+            observer.update(this);
+        }
     }
 }

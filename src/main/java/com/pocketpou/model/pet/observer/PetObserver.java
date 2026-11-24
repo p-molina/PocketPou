@@ -1,15 +1,14 @@
 package com.pocketpou.model.pet.observer;
 
-import com.pocketpou.model.pet.PetAttributes;
+import com.pocketpou.model.pet.Pet;
 
 /*
  * PATTERN: Observer
  * Rol: Interfaz del observador.
- * Función: Definir el método que recibirá los atributos
- * vitales de la mascota cuando sean notificados.
+ * Función: Definir el método que recibe la mascota observada
+ * para consultar sus atributos vitales.
  */
-@FunctionalInterface
 public interface PetObserver {
 
-    void update(PetAttributes attributes);
+    void update(Pet pet);
 }

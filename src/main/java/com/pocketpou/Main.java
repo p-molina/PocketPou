@@ -6,6 +6,7 @@ import com.pocketpou.model.pet.PetAttributes;
 import com.pocketpou.model.pet.PetSpecies;
 import com.pocketpou.model.pet.state.HungryState;
 import com.pocketpou.model.pet.state.SickState;
+import com.pocketpou.view.ConsoleNotifier;
 import com.pocketpou.view.ConsoleView;
 
 /*
@@ -54,5 +55,15 @@ public class Main {
         pet.changeState(new SickState());
         pet.heal();
         controller.showPet(pet);
+
+        view.showMessage("\nPrueba del patrón Observer:");
+        ConsoleNotifier notifier = new ConsoleNotifier(view);
+        pet.addObserver(notifier);
+        pet.updateAttributes(new PetAttributes(90, 15, 15, 15, 1));
+
+        view.showMessage("\nObservador eliminado. La siguiente actualización no debe mostrar avisos:");
+        pet.removeObserver(notifier);
+        pet.updateAttributes(new PetAttributes(95, 10, 10, 10, 1));
+        view.showMessage("Actualización finalizada sin notificaciones.");
     }
 }
