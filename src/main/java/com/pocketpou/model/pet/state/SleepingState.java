@@ -11,33 +11,44 @@ import com.pocketpou.model.pet.PetAttributes;
  */
 public final class SleepingState implements PetState {
 
-    public void feed(Pet pet) {
-        /* La mascota no puede comer mientras duerme. */
+    private final PetState previousState;
+
+    public SleepingState(PetState previousState) {
+        this.previousState = previousState;
     }
 
-    public void play(Pet pet) {
-        /* La mascota no puede jugar mientras duerme. */
+    public PetState getPreviousState() {
+        return previousState;
+    }
+
+    public boolean feed(Pet pet, int hungerReduction) {
+        return false;
+    }
+
+    public boolean play(Pet pet) {
+        return false;
     }
 
     public void sleep(Pet pet) {
         PetAttributes attributes = pet.getAttributes().adjust(0, 0, 30, 0);
         pet.updateAttributes(attributes);
 
-        if (attributes.getEnergy() >= 70) {
-            if (attributes.getHealth() <= 30) {
-                pet.changeState(new SickState());
-            } else if (attributes.getHunger() >= 70) {
-                pet.changeState(new HungryState());
-            } else if (attributes.getHappiness() <= 30) {
-                pet.changeState(new DepressedState());
-            } else {
-                pet.changeState(new HappyState());
-            }
+        if (attributes.getEnergy() < 70) {
+            return;
+        }
+        if (attributes.getHealth() <= 30 || (previousState instanceof SickState && attributes.getHealth() < 60)) {
+            pet.changeState(new SickState());
+        } else if (attributes.getHunger() >= 70 || (previousState instanceof HungryState && attributes.getHunger() > 40)) {
+            pet.changeState(new HungryState());
+        } else if (attributes.getHappiness() <= 30 || (previousState instanceof DepressedState && attributes.getHappiness() < 60)) {
+            pet.changeState(new DepressedState());
+        } else {
+            pet.changeState(new HappyState());
         }
     }
 
-    public void heal(Pet pet) {
-        /* La mascota debe despertar antes de curarse. */
+    public boolean heal(Pet pet, int healthRecovery) {
+        return false;
     }
 
     public String getStateName() {

@@ -11,8 +11,8 @@ import com.pocketpou.model.pet.PetAttributes;
  */
 public final class HungryState implements PetState {
 
-    public void feed(Pet pet) {
-        PetAttributes attributes = pet.getAttributes().adjust(-30, 0, 0, 5);
+    public boolean feed(Pet pet, int hungerReduction) {
+        PetAttributes attributes = pet.getAttributes().adjust(-hungerReduction, 0, 0, 5);
         pet.updateAttributes(attributes);
 
         if (attributes.getHealth() <= 30) {
@@ -20,20 +20,23 @@ public final class HungryState implements PetState {
         } else if (attributes.getHunger() <= 40) {
             pet.changeState(new HappyState());
         }
+        return true;
     }
 
-    public void play(Pet pet) {
-        /* La mascota necesita comer antes de jugar. */
+    public boolean play(Pet pet) {
+        return false;
     }
 
     public void sleep(Pet pet) {
         PetAttributes attributes = pet.getAttributes().adjust(0, 0, 15, 0);
+        pet.changeState(new SleepingState(this));
         pet.updateAttributes(attributes);
     }
 
-    public void heal(Pet pet) {
-        PetAttributes attributes = pet.getAttributes().adjust(0, 20, 0, 0);
+    public boolean heal(Pet pet, int healthRecovery) {
+        PetAttributes attributes = pet.getAttributes().adjust(0, healthRecovery, 0, 0);
         pet.updateAttributes(attributes);
+        return true;
     }
 
     public String getStateName() {

@@ -1,7 +1,5 @@
 package com.pocketpou.model.item;
 
-import java.util.Objects;
-
 /*
  * PATTERN: Factory Method
  * Rol: Producto concreto.
@@ -15,7 +13,7 @@ public final class Medicine implements Item {
     private final int healthRecovery;
 
     public Medicine(String name, int price, int healthRecovery) {
-        this.name = Objects.requireNonNull(name, "name must not be null");
+        this.name = name;
         this.price = price;
         this.healthRecovery = healthRecovery;
     }

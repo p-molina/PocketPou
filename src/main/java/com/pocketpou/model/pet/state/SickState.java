@@ -11,35 +11,30 @@ import com.pocketpou.model.pet.PetAttributes;
  */
 public final class SickState implements PetState {
 
-    public void feed(Pet pet) {
-        PetAttributes attributes = pet.getAttributes().adjust(-15, 0, 0, 0);
+    public boolean feed(Pet pet, int hungerReduction) {
+        PetAttributes attributes = pet.getAttributes().adjust(-hungerReduction, 0, 0, 0);
         pet.updateAttributes(attributes);
+        return true;
     }
 
-    public void play(Pet pet) {
-        /* La mascota debe curarse antes de jugar. */
+    public boolean play(Pet pet) {
+        return false;
     }
 
     public void sleep(Pet pet) {
         PetAttributes attributes = pet.getAttributes().adjust(0, 0, 20, 0);
+        pet.changeState(new SleepingState(this));
         pet.updateAttributes(attributes);
     }
 
-    public void heal(Pet pet) {
-        PetAttributes attributes = pet.getAttributes().adjust(0, 30, 0, 0);
+    public boolean heal(Pet pet, int healthRecovery) {
+        PetAttributes attributes = pet.getAttributes().adjust(0, healthRecovery, 0, 0);
         pet.updateAttributes(attributes);
 
-        if (attributes.getHealth() >= 60) {
-            if (attributes.getHunger() >= 70) {
-                pet.changeState(new HungryState());
-            } else if (attributes.getEnergy() <= 20) {
-                pet.changeState(new SleepingState());
-            } else if (attributes.getHappiness() <= 30) {
-                pet.changeState(new DepressedState());
-            } else {
-                pet.changeState(new HappyState());
-            }
+        if (attributes.getHealth() >= 60 && !pet.updateStateFromNeeds()) {
+            pet.changeState(new HappyState());
         }
+        return true;
     }
 
     public String getStateName() {

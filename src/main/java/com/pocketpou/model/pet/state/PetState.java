@@ -10,13 +10,13 @@ import com.pocketpou.model.pet.Pet;
  */
 public interface PetState {
 
-    void feed(Pet pet);
+    boolean feed(Pet pet, int hungerReduction);
 
-    void play(Pet pet);
+    boolean play(Pet pet);
 
     void sleep(Pet pet);
 
-    void heal(Pet pet);
+    boolean heal(Pet pet, int healthRecovery);
 
     String getStateName();
 }

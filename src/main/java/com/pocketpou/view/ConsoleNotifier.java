@@ -4,8 +4,6 @@ import com.pocketpou.model.pet.Pet;
 import com.pocketpou.model.pet.PetAttributes;
 import com.pocketpou.model.pet.observer.PetObserver;
 
-import java.util.Objects;
-
 /*
  * PATTERN: Observer
  * Rol: Observador concreto.
@@ -17,7 +15,7 @@ public final class ConsoleNotifier implements PetObserver {
     private final ConsoleView view;
 
     public ConsoleNotifier(ConsoleView view) {
-        this.view = Objects.requireNonNull(view, "view must not be null");
+        this.view = view;
     }
 
     public void update(Pet pet) {

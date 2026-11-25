@@ -17,7 +17,7 @@ public final class PetAttributes {
         this.health = limitToRange(health);
         this.energy = limitToRange(energy);
         this.happiness = limitToRange(happiness);
-        this.age = age;
+        this.age = Math.max(0, age);
     }
 
     public PetAttributes adjust(

@@ -2,32 +2,26 @@ package com.pocketpou.model.minigame;
 
 import com.pocketpou.model.minigame.strategy.ScoringStrategy;
 
-import java.util.Objects;
-
 /*
  * PATTERN: Strategy
  * Rol: Contexto.
- * Función: Mantener una estrategia intercambiable y delegar
- * en ella el cálculo de la recompensa en monedas.
+ * Función: Delegar el cálculo de monedas en la estrategia activa
+ * para poder cambiar el cálculo sin modificar el minijuego.
  */
 public abstract class MiniGame {
 
     private ScoringStrategy scoringStrategy;
 
     protected MiniGame(ScoringStrategy scoringStrategy) {
-        this.scoringStrategy = Objects.requireNonNull(scoringStrategy, "scoringStrategy must not be null");
-    }
-
-    public ScoringStrategy getScoringStrategy() {
-        return scoringStrategy;
+        this.scoringStrategy = scoringStrategy;
     }
 
     public void setScoringStrategy(ScoringStrategy scoringStrategy) {
-        this.scoringStrategy = Objects.requireNonNull(scoringStrategy, "scoringStrategy must not be null");
+        this.scoringStrategy = scoringStrategy;
     }
 
-    public int calculateReward(int correctAnswers, int attempts, long elapsedTimeMillis) {
-        return scoringStrategy.calculateScore(correctAnswers, attempts, elapsedTimeMillis);
+    public int calculateReward(int correctAnswers, int attempts, double elapsedTimeSeconds) {
+        return scoringStrategy.calculateScore(correctAnswers, attempts, elapsedTimeSeconds);
     }
 
     public abstract String getName();
