@@ -6,3 +6,7 @@ target/
 .env
 .DS_Store
 Thumbs.db
+/pocketpou-save.properties
+/src/test/
+/docs/architecture.md
+.gitkeep
